@@ -138,4 +138,18 @@ class RoomController extends Controller
 
         return response()->json(['message' => 'Image removed.']);
     }
+
+    public function checkAvailability(Request $request, Room $room)
+    {
+        $hasActive = \App\Models\Lease::where('active_room_id', $room->id)->exists();
+        $isAvailable = ($room->status === 'available') && ! $hasActive;
+
+        return response()->json([
+            'room_id' => $room->id,
+            'room_number' => $room->room_number,
+            'status' => $room->status,
+            'is_available' => $isAvailable,
+        ]);
+    }
 }
+

@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/rooms', [RoomController::class, 'store'])->middleware('role:landlord,admin');
     Route::put('/rooms/{room}', [RoomController::class, 'update'])->middleware('role:landlord,admin');
     Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->middleware('role:landlord,admin');
+    Route::get('/rooms/{room}/availability-status', [RoomController::class, 'checkAvailability']);
     Route::patch('/rooms/{room}/availability', [RoomController::class, 'toggleAvailability'])->middleware('role:landlord,admin');
     Route::post('/rooms/{room}/images', [RoomController::class, 'uploadImages'])->middleware('role:landlord,admin');
     Route::delete('/rooms/{room}/images/{image}', [RoomController::class, 'destroyImage'])->middleware('role:landlord,admin');
